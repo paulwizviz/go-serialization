@@ -4,13 +4,13 @@ A collection of example Go implementation of data serialization.
 
 ## Working Examples
 
-* [ASN1](./asnser)
-* [Base64](./base64ser/)
-* [CBOR](./cborser/)
-* [GOB](./gobser/)
-* [INI File](./inifile/)
-* [TOML](./tomlser/)
-* [YAML](./ymlser/)
+* [ASN1](./asnser/doc.md)
+* [Base64](./base64ser/doc.md)
+* [CBOR](./cborser/doc.md)
+* [GOB](./gobser/doc.md)
+* [INI File](./inifile/doc.md)
+* [TOML](./tomlser/doc.md)
+* [YAML](./ymlser/doc.md)
 
 ## Disclaimers
 

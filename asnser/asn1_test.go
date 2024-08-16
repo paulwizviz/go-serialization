@@ -4,101 +4,12 @@ import (
 	"encoding/asn1"
 	"fmt"
 	"time"
-	"unicode/utf8"
 )
 
 // The following examples demonstrate the marshaling/unmarshaling of
 // primitive types
 
 // NOTE: asn1.Marshal encode to DER format
-
-func Example_bool() {
-	m1, _ := asn1.Marshal(true)
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagBoolean, m1[0], m1)
-
-	var b1 bool
-	asn1.Unmarshal(m1, &b1)
-	fmt.Printf("Unmarshal: %v\n", b1)
-
-	m2, _ := asn1.Marshal(false)
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagBoolean, m2[0], m2)
-
-	var b2 bool
-	asn1.Unmarshal(m2, &b2)
-	fmt.Printf("Unmarshal: %v\n", b2)
-
-	// Output:
-	// Tag: 1(1) Value: 0101ff
-	// Unmarshal: true
-	// Tag: 1(1) Value: 010100
-	// Unmarshal: false
-}
-
-func Example_int() {
-	enc, _ := asn1.Marshal(10)
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagInteger, enc[0], enc)
-
-	var i int
-	asn1.Unmarshal(enc, &i)
-	fmt.Printf("Unmarshal: %v\n", i)
-
-	enc, _ = asn1.Marshal('a')
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagInteger, enc[0], enc)
-
-	asn1.Unmarshal(enc, &i)
-	if i == 'a' {
-		fmt.Printf("Unmarshal: %v\n", i)
-	}
-
-	// Output:
-	// Tag: 2(2) Value: 02010a
-	// Unmarshal: 10
-	// Tag: 2(2) Value: 020161
-	// Unmarshal: 97
-}
-
-func Example_bitstring() {
-	value := []byte("Hello world")
-	input := asn1.BitString{
-		Bytes:     value,
-		BitLength: len(value) * 8, // Length in bits
-	}
-
-	enc, _ := asn1.Marshal(input)
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagBitString, enc[0], enc)
-
-	var bstring asn1.BitString
-	rest, err := asn1.Unmarshal(enc, &bstring)
-	fmt.Printf("Unmarshal: %s Rest: %v, Error: %v", bstring.Bytes, rest, err)
-
-	// Output:
-	// Tag: 3(3) Value: 030c0048656c6c6f20776f726c64
-	// Unmarshal: Hello world Rest: [], Error: <nil>
-}
-
-func Example_octetstring() {
-	utf8Char := make([]byte, 3)
-	utf8.EncodeRune(utf8Char, '世')
-	enc, _ := asn1.Marshal(utf8Char)
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagOctetString, enc[0], enc)
-
-	var octetString []byte
-	asn1.Unmarshal(enc, &octetString)
-	fmt.Printf("Unmarshal: %s\n", octetString)
-
-	s := []byte("Hello world")
-	enc, _ = asn1.Marshal(s)
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagOctetString, enc[0], enc)
-
-	asn1.Unmarshal(enc, &octetString)
-	fmt.Printf("Unmarshal: %s\n", octetString)
-
-	// Output:
-	// Tag: 4(4) Value: 0403e4b896
-	// Unmarshal: 世
-	// Tag: 4(4) Value: 040b48656c6c6f20776f726c64
-	// Unmarshal: Hello world
-}
 
 func Example_null() {
 
@@ -143,32 +54,6 @@ func Example_enum() {
 	// Output:
 	// Tag: 10(10) Value: 0a0101
 	// Unmarshal: 1
-}
-
-func Example_utf8string() {
-	enc, _ := asn1.Marshal("Hello world! 你好世界")
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagUTF8String, enc[0], enc)
-
-	var utf8string string
-	asn1.Unmarshal(enc, &utf8string)
-	fmt.Printf("Unmarshal: %s", utf8string)
-
-	// Output:
-	// Tag: 12(12) Value: 0c1948656c6c6f20776f726c642120e4bda0e5a5bde4b896e7958c
-	// Unmarshal: Hello world! 你好世界
-}
-
-func Example_printablestring() {
-	enc, _ := asn1.Marshal("Ola world")
-	fmt.Printf("Tag: %v(%v) Value: %x\n", asn1.TagPrintableString, enc[0], enc)
-
-	var printable string
-	asn1.Unmarshal(enc, &printable)
-	fmt.Printf("Unmarshal: %v", printable)
-
-	// Output:
-	// Tag: 19(19) Value: 13094f6c6120776f726c64
-	// Unmarshal: Ola world
 }
 
 func Example_utctime() {

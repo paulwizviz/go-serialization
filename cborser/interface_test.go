@@ -75,10 +75,10 @@ func (d *human) MarshalCBOR() ([]byte, error) {
 	bday := d.birthday.Format(time.RFC3339)
 
 	return cbor.Marshal(&struct {
-		Firstname string
-		Surname   string
-		Birthday  string
-		Address   address
+		Firstname string  `cbor:"firstname"`
+		Surname   string  `cbor:"surname"`
+		Birthday  string  `cbor:"birthday"`
+		Address   address `cbor:"address"`
 	}{
 		Firstname: d.firstname,
 		Surname:   d.surname,
@@ -89,10 +89,10 @@ func (d *human) MarshalCBOR() ([]byte, error) {
 
 func (d *human) UnmarshalCBOR(data []byte) error {
 	var aux struct {
-		Firstname string
-		Surname   string
-		Birthday  string
-		Address   address
+		Firstname string  `cbor:"firstname"`
+		Surname   string  `cbor:"surname"`
+		Birthday  string  `cbor:"birthday"`
+		Address   address `cbor:"address"`
 	}
 	if err := cbor.Unmarshal(data, &aux); err != nil {
 		return err

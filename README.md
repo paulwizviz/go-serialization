@@ -13,6 +13,8 @@ A collection of example Go implementation of data serialization.
 * [TOML](./tomlser/doc.md)
 * [YAML](./ymlser/doc.md)
 
-## Disclaimers
+## Disclaimer
 
-The content in this project is intended for educational purposes and is subject to changes without notice.
+This project is for educational purposes only. It is not a production-ready solution and requires significant modifications, rigorous security audits, and extensive testing before use in any production environment.
+
+This project is ongoing and may change without prior notification. By using this project, you acknowledge that you do so at your own risk. The authors of this project accept no liability for any issues or damages resulting from its use. Please use this project as a learning resource and not as a fully functional or secure application.
